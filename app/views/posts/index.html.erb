@@ -1,0 +1,37 @@
+<h1>Posts#index</h1>
+<p>Find me in app/views/posts/index.html.erb</p>
+column :blocked
+
+<% if user_signed_in? %>
+  <div>Welcome <%= current_user.email %></div>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+
+  <% if current_user && !current_user.blocked? %>
+    <%= link_to "Create Post", new_post_path %>
+  <% end %>
+
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %>
+<% end %>
+
+
+
+<h1> <%= current_user.email %>Posts </h1>
+
+<ul>
+  <%  current_user.posts.each do |article| %>
+   <table style="color:blue; display:grid;   border-collapse: collapse;">
+   <th style="border:1px solid black">  
+   <%= article.title %>
+ </th>
+
+ <td style="border:1px solid black">
+
+ <%= article.content %>
+
+ </td>
+   </table>
+
+
+  <% end %>
+</ul>
